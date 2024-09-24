@@ -1,9 +1,14 @@
 FROM ubuntu:latest
 
-# Update package list and install Python 3 and pip
+# Update package list and install Python 3, pip, and dependencies
 RUN apt-get update && apt-get install -y \
     python3 \
-    python3-pip
+    python3-pip \
+    python3-setuptools \
+    python3-dev \
+    build-essential \
+    wget \
+    curl
 
 # Upgrade pip to the latest version
 RUN pip3 install --upgrade pip
