@@ -1,18 +1,20 @@
-# Use the official Jupyter image
-FROM jupyter/base-notebook
+# Base image
+FROM thuonghai2711/ubuntu-novnc-pulseaudio:22.04
 
-# Install JupyterLab
-RUN pip install jupyterlab
+# Set environment variables
+ENV VNC_PASSWD=Preecha_0633
+ENV PORT=10000
+ENV AUDIO_PORT=1699
+ENV WEBSOCKIFY_PORT=6900
+ENV VNC_PORT=5900
+ENV SCREEN_WIDTH=1024
+ENV SCREEN_HEIGHT=768
+ENV SCREEN_DEPTH=24
 
-# Set the working directory
-WORKDIR /app
+# Expose necessary ports
+EXPOSE 10000
+EXPOSE 1699
+EXPOSE 6900
+EXPOSE 5900
 
-# Expose the desired port
-EXPOSE 8080
-
-# Set the environment variables for JupyterLab
-ENV JUPYTER_ENABLE_LAB=yes
-ENV JUPYTER_PORT=8080
-
-# Configure Jupyter to use the specified port and disable token authentication
-CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8080", "--no-browser", "--allow-root", "--NotebookApp.token=''"]
+# Optionally, you can add any additional setup or commands here if needed
