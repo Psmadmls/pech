@@ -1,26 +1,18 @@
-FROM ubuntu:latest
+# Use the official Jupyter image
+FROM jupyter/base-notebook
 
-# Update package list and install Python 3, pip, and dependencies
-RUN apt-get update && apt-get install -y \
-    python3 \
-    python3-pip \
-    python3-setuptools \
-    python3-dev \
-    build-essential \
-    wget \
-    curl
-
-# Upgrade pip to the latest version
-RUN pip3 install --upgrade pip
+# Install JupyterLab
+RUN pip install jupyterlab
 
 # Set the working directory
 WORKDIR /app
 
-# Install JupyterLab
-RUN pip3 install jupyterlab
-
-# Expose port 8080
+# Expose the desired port
 EXPOSE 8080
 
-# Start JupyterLab
+# Set the environment variables for JupyterLab
+ENV JUPYTER_ENABLE_LAB=yes
+ENV JUPYTER_PORT=8080
+
+# Configure Jupyter to use the specified port and disable token authentication
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8080", "--no-browser", "--allow-root", "--NotebookApp.token=''"]
